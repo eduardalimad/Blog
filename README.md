@@ -7,7 +7,6 @@ git clone https://github.com/eduardalimad/Blog.git
 ```bash
 # After use powershel or outher terminal for the commands:
 $ yarn install
-$ yarn install
 
 # serve with hot reload at localhost:3000
 $ yarn dev
