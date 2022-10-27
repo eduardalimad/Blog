@@ -2,7 +2,7 @@
 
 ## 🚀 Start the Project
 
-git clone https://github.com/eduardalimad/OnePage-Grid.git
+git clone https://github.com/eduardalimad/Blog.git
 
 ```bash
 # After use powershel or outher terminal for the commands:
