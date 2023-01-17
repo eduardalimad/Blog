@@ -39,7 +39,7 @@ html, body {
 }
  @media only screen and (max-width: 548px) {
   .container {
-   min-width: 100%;
+   width: 100%;
   }
 }
 </style>

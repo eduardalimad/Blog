@@ -103,7 +103,7 @@ export default {
 }
 
 .container {
-  min-width: 100vw;
+  min-width: 98vw;
   min-height: 100vh;
   margin: 0;
 }
@@ -137,7 +137,8 @@ export default {
     display: flex;
     flex-wrap: wrap;
     width: auto;
-    flex-direction: column
+    flex-direction: column;
+    justify-content: center;
   }
 
 }
