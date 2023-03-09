@@ -1,16 +1,15 @@
 <template>
   <div class="container">
-    <div class="header">
-      <div class="nav">
+    <header>
+      <nav>
         <h2>Codelândia</h2>
         <h2>Blog</h2>
-      </div>
+      </nav>
       <div>
         <Search v-model="text" class="InputSearch" />
       </div>
-    </div>
-    <div class="container-post">
-      
+    </header>
+    <main class="container-post">
       <div class="post" v-for="(item, key) in filteredItems" :key="key">
         <div class="data">
           <p> 02 de jul, 2021 </p>  
@@ -20,7 +19,7 @@
         {{ item.Post }}
       </div>
       
-    </div>
+    </main>
   </div>
 </template>
 <script lang="js">
@@ -51,7 +50,7 @@ export default {
           Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
         },
         {
-          Titulo: "Tim Berners-Lee vai leiloar código-fonte da web",
+          Titulo: "Operador Ternário",
           Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
         },
         {
@@ -107,7 +106,7 @@ export default {
   min-height: 100vh;
   margin: 0;
 }
-.header {
+header {
   display: grid;
   margin-top: 0;
   font-family: "Lexend Deca", sans-serif;
@@ -117,7 +116,7 @@ export default {
   height: 12rem;
   margin-left: 0;
 }
-.nav {
+nav {
   width: 100%;
   margin-top: 2%;
   display: grid;
@@ -126,14 +125,17 @@ export default {
   align-content: space-evenly;
   justify-items: center;
 }
+main{
+  margin-bottom: 2rem;
+}
 @media only screen and (max-width: 554px) {
-  .nav {
+  nav {
     width: auto;
    display: flex;
    flex-wrap: wrap;
   
   }
-  .header{
+  header{
     display: flex;
     flex-wrap: wrap;
     width: auto;
