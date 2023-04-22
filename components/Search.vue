@@ -37,9 +37,10 @@ input {
   height: 3rem;
   width: 25rem;
   border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: .3rem;
   color: rgb(255, 255, 255);
   font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.548);
+  background: rgba(255, 255, 255, 0.386);
   background-image: url("../public/img/iconSearch.svg");
   background-repeat: no-repeat;
   background-position-y:12px;
@@ -48,6 +49,14 @@ input {
   padding-left: 3rem;
 
 }
+input:focus, input:focus, select:focus, ::placeholder  {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    border-radius: .3rem;
+    outline: 0;
+    color: rgb(255, 255, 255);
+}
+    
  @media only screen and (max-width: 548px) {
   input {
    width: 90%;
