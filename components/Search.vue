@@ -34,15 +34,12 @@
 <style scoped>
 
 input {
-  margin-top: 2%;
   height: 3rem;
-  width: 30rem;
+  width: 25rem;
   border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: .1rem;
   color: rgb(255, 255, 255);
   font-size: 2.5rem;
   background: rgba(255, 255, 255, 0.548);
-  position:relative;
   background-image: url("../public/img/iconSearch.svg");
   background-repeat: no-repeat;
   background-position-y:12px;
@@ -53,7 +50,7 @@ input {
 }
  @media only screen and (max-width: 548px) {
   input {
-   width: auto;
+   width: 90%;
   }
 }
 

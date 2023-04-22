@@ -4,92 +4,68 @@
       <nav>
         <h2>Codelândia</h2>
         <h2>Blog</h2>
+        <Search v-model="text" class="inputSearch" />
       </nav>
-      <div>
-        <Search v-model="text" class="InputSearch" />
-      </div>
     </header>
     <main class="container-post">
-      <div class="post" v-for="(item, key) in filteredItems" :key="key">
-        <div class="data">
-          <p> 02 de jul, 2021 </p>  
-          <Button-counter></Button-counter>
-        </div>        
-        <h3>{{ item.Titulo }}</h3>
-        {{ item.Post }}
+      <div v-if="text === ''">
+        <section class="post" v-for="(item, key) in posts" :key="key" >
+            <button v-bind:href="minhaUrl"> click-me </button>
+          <span>{{ item.author}} </span>
+          <span>{{formatDate(item.publishedAt)}}</span>
+          <h3>{{ item.title }}</h3>
+          <span>Lorem ipsum dolor, officiis, deleniti saepe maiores? Possimus ad optio eius magni labore odio.</span>
+          
+        </section>
       </div>
-      
+      <div v-else>
+        <section class="post" v-for="(item, key) in filteredItems" :key="key">
+          <h3>{{ item.title }}</h3>
+          <span>{{ item.owner_username }} </span>
+        </section>
+      </div>
     </main>
   </div>
 </template>
 <script lang="js">
+import http from "../services/config/index"
+import dayjs from 'dayjs'
 export default {
-  props: {
-    listCollaborators: {
-      type: [Array, Object],
-      required: true
-    }
-  },
-
   data () {
-    
     return {
       text: '',
-      counter: 0,
-      selected: null,
-      fields: [
-        {
-          key: "Titulo",
-          Post: "Post"
-        },
-        
-      ],
-      items: [
-        {
-          Titulo: "Agora é oficial: o Windows 11 está vindo ",
-          Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
-        },
-        {
-          Titulo: "Operador Ternário",
-          Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
-        },
-        {
-          Titulo: "Tem Firefox novo no pedaço e você vai querer migrar",
-          Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
-        },
-        {
-          Titulo: "John McAfee, criador do antivírus McAfee, morre",
-          Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
-        },
-        {
-          Titulo: "Tem Firefox novo no pedaço e você vai querer migrar",
-          Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
-        },
-        {
-          Titulo: "John McAfee, criador do antivírus McAfee, morre",
-          Post: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum auctor est. Nam vitae finibus ante. Duis lobortis tellus vel diam fringilla, eu ullamcorper ex iaculis.",
-        },
-         
-      ],
-      text: "",
-      selected: null,
+      posts:{},
+      minhaUrl:''
+      
     };
   },
-  computed: {
+  async fetch(){
+     await http.get('country=br&category=technology&apiKey=68a4252392ee4192bb6aa71d51f43167').
+     then((res)=> {
+      const resultado = res.data.articles
+      this.posts = resultado    
+    
+})
+  },
+  methods: {
+    formatDate (date) {
+      return dayjs(date).format('DD/MM/YYYY')
+    },
+  },
+    computed: {
     filteredItems() {
       let valores = [];
-      valores = this.items.filter((item) => {
+      valores = this.posts.filter((item) => {
         return (
         
-          (item.Post.toLowerCase().includes(this.text.toLowerCase()) ||
-            item.Titulo.toLowerCase().includes(this.text.toLowerCase()))
+          (
+            item.title.toLowerCase().includes(this.text.toLowerCase()))
         );
       });
       return valores;
     },
   },
   
- 
 }
 </script>
 
@@ -110,67 +86,48 @@ header {
   display: grid;
   margin-top: 0;
   font-family: "Lexend Deca", sans-serif;
-  background: linear-gradient(88.27deg, #574AE8 0%, #3EA1DB 100%);
+  background: linear-gradient(88.27deg, #574ae8 0%, #3ea1db 100%);
   color: white;
   width: 100%;
   height: 12rem;
   margin-left: 0;
 }
 nav {
-  width: 100%;
-  margin-top: 2%;
   display: grid;
-  grid-template-columns: 150px 150px;
-  justify-content: space-around;
-  align-content: space-evenly;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 75px);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
   justify-items: center;
-}
-main{
-  margin-bottom: 2rem;
-}
-@media only screen and (max-width: 554px) {
-  nav {
-    width: auto;
-   display: flex;
-   flex-wrap: wrap;
-  
-  }
-  header{
-    display: flex;
-    flex-wrap: wrap;
-    width: auto;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-}
-.form {
-  display: grid;
-  grid-column-start: 2;
-  grid-column-end: 1;
-  grid-row-start: 0;
-  grid-row-end: 0;
-  width: 100%;
-  justify-content: center;
   align-items: center;
+}
+
+.inputSearch {
+  grid-area: 2 / 1 / 3 / 4;
+  place-items: center;
+}
+
+main {
+  margin-bottom: 2rem;
 }
 .post {
   width: 60%;
   min-height: 25vh;
   margin: auto;
   margin-top: 2rem;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(19, 19, 31, 0.05);
   border-radius: 5px;
   padding: 2%;
 }
-.data{
+.data {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2%;
 }
-
-
-
-
+@media only screen and (max-width: 768px) {
+  .post {
+    width: 80%;
+  }
+}
 </style>
